@@ -34,8 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
     //Route User
     Route::get('/user','App\Http\Controllers\UserController@user')->name('user.index');
-    Route::post('/user-post','App\Http\Controllers\UserController@store')->name('user.store');
-    Route::post('/user-post/{id}','App\Http\Controllers\UserController@update')->name('user.update');
+    Route::post('/user/post','App\Http\Controllers\UserController@store')->name('user.store');
+    Route::post('/user/edit/{id}','App\Http\Controllers\UserController@update')->name('user.update');
     Route::delete('/user-hapus/{id}','App\Http\Controllers\UserController@destroy')->name('user.destroy');
     //lokasi
     Route::get('/lokasi', 'App\Http\Controllers\LokasiController@index')->name('lokasi.index');
