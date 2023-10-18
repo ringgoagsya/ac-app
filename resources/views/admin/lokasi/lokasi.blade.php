@@ -83,6 +83,25 @@
                         <form role="form" method="post" action="{{ route('lokasi.store') }}"
                             enctype="multipart/form-data">
                             @csrf
+                            @php
+                                $lokasi_id = 'Belum Ada Lokasi';
+                            @endphp
+                            @foreach ($lokasi as $pem_in)
+                                @if ($loop->last)
+                                    @php
+                                        $lokasi_id = $pem_in;
+                                    @endphp
+                                @endif
+                            @endforeach
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-text">LAST ID</span>
+                                    <input class="form-control" aria-label="LAST ID" style="color: black"
+                                        value="{{ ' LAST ID LOKASI : ' . $lokasi_id->id_lokasi }}">
+                                </div>
+                            </div>
+
+
                             <div class="form-group">
                                 <label for="id_lokasi" class="form-control-label">Nama Lokasi</label>
                                 <div class="input-group input-group-alternative">
@@ -127,8 +146,8 @@
                             <h3 class="modal-title" id="modal-title-default">Edit Data Lokasi</h3>
                         </div>
                         <div class="modal-body">
-                            <form role="form" method="post" action="{{ route('lokasi.edit', [$loc->id_lokasi]) }}"
-                                enctype="multipart/form-data">
+                            <form role="form" method="post"
+                                action="{{ route('lokasi.edit', [$loc->id_lokasi]) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('post')
                                 <div class="form-group mb-3">

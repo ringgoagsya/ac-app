@@ -80,6 +80,23 @@
                         <form role="form" method="post" action="{{ route('area.store') }}"
                             enctype="multipart/form-data">
                             @csrf
+                            @php
+                                $area_id = 'Belum Ada Area';
+                            @endphp
+                            @foreach ($area as $pem_in)
+                                @if ($loop->last)
+                                    @php
+                                        $area_id = $pem_in;
+                                    @endphp
+                                @endif
+                            @endforeach
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-text">LAST ID</span>
+                                    <input class="form-control" aria-label="LAST ID" style="color: black"
+                                        value="{{ ' LAST ID AREA : ' . $area_id->id_area }}">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="id_area" class="form-control-label">ID Area</label>
                                 <div class="input-group input-group-alternative">

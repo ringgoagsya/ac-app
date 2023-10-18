@@ -123,6 +123,35 @@
                             <form role="form" method="post" action="{{ route('ac.store') }}"
                                 enctype="multipart/form-data">
                                 @csrf
+                                @php
+                                    $count = 0;
+                                @endphp
+                                @foreach ($area as $jumlah_area)
+                                    @php
+                                        $id_ac[$jumlah_area->id_area] = 'Belum Ada AC';
+                                    @endphp
+                                    @foreach ($ac as $ac_basement)
+                                        @if ($ac_basement->id_area == $jumlah_area->id_area)
+                                            @php
+                                                $id_ac[$jumlah_area->id_area] = $ac_basement->id_ac;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    @php $count++ @endphp
+                                @endforeach
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-text">LAST ID</span>
+                                        <textarea class="form-control" aria-label="LAST ID" rows="{{ $count - 15 }}">
+@foreach ($area as $id_area_nya)
+{{ ' LAST ID AC ' . $id_area_nya->nama_area . ' : ' . $id_ac[$id_area_nya->id_area] }}
+@endforeach
+
+                                </textarea>
+                                    </div>
+                                </div>
+
+
                                 <label for="id_ac" class="form-control-label">ID Air Conditioner</label>
                                 <div class="form-group">
                                     <div class="input-group input-group-alternative">
@@ -170,7 +199,8 @@
                                     <label for="type_lokasi" class="form-control-label">Tipe Lokasi</label>
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-map-marker text-blue"></i></span>
+                                            <span class="input-group-text"><i
+                                                    class="fa fa-map-marker text-blue"></i></span>
                                         </div>
                                         <select id="type_lokasi" name="type_lokasi" class="form-control">
                                             <option value="INDOOR" selected>

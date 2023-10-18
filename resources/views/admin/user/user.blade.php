@@ -86,6 +86,33 @@
                             <form role="form" method="post" action="{{ route('user.store') }}"
                                 enctype="multipart/form-data">
                                 @csrf
+                                @php
+                                    $last_teknisi_internal = 'Belum Ada Teknisi';
+                                    $last_teknisi_external = 'Belum Ada Teknisi';
+                                @endphp
+                                @foreach ($teknisi as $pem_in)
+                                    @if ($pem_in->type_teknisi == 'INTERNAL')
+                                        @php
+                                            $last_teknisi_internal = $pem_in;
+                                        @endphp
+                                    @endif
+                                @endforeach
+                                @foreach ($teknisi as $pem_ex)
+                                    @if ($pem_ex->type_teknisi == 'EXTERNAL')
+                                        @php
+                                            $last_teknisi_external = $pem_ex;
+                                        @endphp
+                                    @endif
+                                @endforeach
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-text">LAST ID</span>
+                                        <textarea class="form-control" aria-label="LAST ID">
+ {{ "LAST ID TEKNISI 'INTERNAL':" . $last_teknisi_internal->id_teknisi }}
+ {{ "LAST ID TEKNISI 'EXTERNAL': " . $last_teknisi_external->id_teknisi }}
+                                        </textarea>
+                                    </div>
+                                </div>
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-alternative">
                                         <div class="input-group-prepend">
@@ -94,7 +121,8 @@
                                         <select id="id_teknisi" name="id_teknisi" class="form-control">
                                             @foreach ($teknisi as $pem)
                                                 @if (!$pem->user)
-                                                    <option value="{{ $pem->id_teknisi }}" selected>{{ $pem->nama_teknisi }}
+                                                    <option value="{{ $pem->id_teknisi }}" selected>
+                                                        {{ $pem->nama_teknisi }}
                                                     </option>
                                                 @endif
                                             @endforeach
